@@ -41,8 +41,8 @@ public class Fibonaccidataupdate implements java.lang.Runnable{
 		Dataconn dataconn =new Dataconn();
 		Connection conn = dataconn.getconn();
 		PreparedStatement stmt = null;
-		String updatestatement = "update fibdata set stochk=?,stochd=?,WillR=?,rsi=?,bh=?,bh1=?,bh2=?,bh3=?,bh4=?,mid1=?,mid2=?,mid3=?,mid4=?,bl=?,bl1=?,bl2=? where stocksymbol=?";		
-		String insertstatement = "insert into fibdata (stochk,stochd,willr,rsi,bh,bh1,bh2,bh3,bh4,mid1,mid2,mid3,mid4,bl,bl1,bl2,stocksymbol) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String updatestatement = "update fibdata set stochk=?,stochd=?,WillR=?,rsi=?,bh=?,bh1=?,bh2=?,bh3=?,bh4=?,mid1=?,mid2=?,mid3=?,mid4=?,bl=?,bl1=?,bl2=?,sma200=? where stocksymbol=?";		
+		String insertstatement = "insert into fibdata (stochk,stochd,willr,rsi,bh,bh1,bh2,bh3,bh4,mid1,mid2,mid3,mid4,bl,bl1,bl2,stocksymbol,sma200) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
 while (it.hasNext()) {
@@ -70,7 +70,8 @@ while (it.hasNext()) {
 			        stmt.setFloat(14, st.getLowbasic());
 			        stmt.setFloat(15, st.getLowbasic1());
 			        stmt.setFloat(16, st.getLowbasic2());
-			        stmt.setString(17, stocksymbol);
+			        stmt.setFloat(17, (float) st.getSma200());
+			        stmt.setString(18, stocksymbol);
 					stmt.executeUpdate();
 		        int rowsUpdated = stmt.executeUpdate();
 		        
@@ -95,6 +96,7 @@ while (it.hasNext()) {
 				        stmt.setFloat(15, st.getLowbasic1());
 				        stmt.setFloat(16, st.getLowbasic2());
 				        stmt.setString(17, stocksymbol);
+				        stmt.setFloat(18, (float) st.getSma200());
 						stmt.executeUpdate();
 						
 						
@@ -499,11 +501,11 @@ dataconn.closeconn();
 	  }
         	   
            }
-  
+  double sma200 = 0;
   retCode = c1.sma(0, closeArray.length-1, closeArray, 200, begin, length, out);
 
   if (retCode == RetCode.Success) {
-	  Double sma200;
+	  
 	try{
 	  sma200= Double.valueOf(df1.format(out[length.value-1]));
 	  }
@@ -523,7 +525,7 @@ dataconn.closeconn();
   fd.setStochd((float) indicd);
   fd.setRsi((float) rsi);
   fd.setWpr((float) wpr);
-  
+  fd.setSma200(sma200);
   
   return fd;
  

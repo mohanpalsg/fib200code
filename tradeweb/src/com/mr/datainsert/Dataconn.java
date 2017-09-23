@@ -12,7 +12,7 @@ public class Dataconn {
 		if ((this.env).equals("test"))
 				{
 			// local database
-			this.url = "jdbc:mysql://mofib:3306/mofibdb";
+			this.url = "jdbc:mysql://mysql:3306/motradedb";
 			//	 this.username = "root"; //localsetting
 			     this.username="SYSTEM"; //openshiftsetting
 				 this.password = "jurong123";

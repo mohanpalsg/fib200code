@@ -13,6 +13,13 @@ public float wpr;
 public float stochk;
 public float stochd;
 public float rsi;
+public double sma200;
+public double getSma200() {
+	return sma200;
+}
+public void setSma200(double sma200) {
+	this.sma200 = sma200;
+}
 public float getMid1() {
 	return mid1;
 }

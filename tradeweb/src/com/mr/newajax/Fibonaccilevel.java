@@ -49,10 +49,10 @@ public class Fibonaccilevel extends HttpServlet {
 		
 		String highdiff = (String) session.getAttribute("pricediffhighselected");
 		if (highdiff == null || highdiff.equals(""))
-			highdiff = "2.5";
+			highdiff = "1";
 		String lowdiff = (String) session.getAttribute("pricedifflowselected");
 		if (lowdiff == null || lowdiff.equals(""))
-			lowdiff = "-2.5";
+			lowdiff = "0";
 		String tablename="fibdata";
 		
 		HashMap <String,FibonaccirenderedObject> output = new HashMap <String,FibonaccirenderedObject>();
@@ -115,6 +115,7 @@ public class Fibonaccilevel extends HttpServlet {
 		setprice(ro,lowdiff,highdiff,fibondata.getLowbasic(),"Low0",newphpdata);
 		setprice(ro,lowdiff,highdiff,fibondata.getLowbasic1(),"Low1",newphpdata);
 		setprice(ro,lowdiff,highdiff,fibondata.getLowbasic2(),"Low2",newphpdata);
+		setprice(ro,lowdiff,highdiff,(float) fibondata.getSma200(),"sma200",newphpdata);
 		
 		if(ro.isMatchfound())
 			return ro;
@@ -180,6 +181,7 @@ public class Fibonaccilevel extends HttpServlet {
 				fnew.setLowbasic(rs.getFloat(15));
 				fnew.setLowbasic1(rs.getFloat(16));
 				fnew.setLowbasic2(rs.getFloat(17));
+				fnew.setSma200(rs.getFloat(18));
 				fd.put(fnew.getStocksymbol(), fnew);
 			}
 		} catch (SQLException e) {
